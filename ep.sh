@@ -1,7 +1,7 @@
 #!/bin/sh
 
-AdminVer="4.9.10"
-InfoVer="1.11"
+AdminVer="5.2.0"
+InfoVer="2.0.3"
 TLVer="1.9.18"
 
 mkdir -p /usr/share/webapps/ && cd /usr/share/webapps/ && wget https://files.phpmyadmin.net/phpMyAdmin/${AdminVer}/phpMyAdmin-${AdminVer}-all-languages.tar.gz > /dev/null 2>&1 && tar -xzvf phpMyAdmin-${AdminVer}-all-languages.tar.gz > /dev/null 2>&1 && mv phpMyAdmin-${AdminVer}-all-languages phpmyadmin
