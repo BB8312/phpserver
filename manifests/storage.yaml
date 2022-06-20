@@ -1,0 +1,136 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: phpweb1-pv-volume
+  labels:
+    type: nfs
+    name: phpweb-nfs-vol
+spec:
+  capacity:
+    storage: 800Mi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  nfs:
+    path: /mnt/IT-Academy/nfs-data/sa2-20-22/bb8312/data
+    server: 192.168.37.105
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: phpweb2-pv-volume
+  labels:
+    type: nfs
+    name: phpwebdb-nfs-vol
+spec:
+  capacity:
+    storage: 800Mi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  nfs:
+    path: /mnt/IT-Academy/nfs-data/sa2-20-22/bb8312/db
+    server: 192.168.37.105
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: phpweb1-pv-claim
+  labels:
+    app: php-web
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 800Mi
+  selector:
+    matchLabels:
+      name: phpweb-nfs-vol
+      type: nfs
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: phpweb2-pv-claim
+  labels:
+    app: php-web
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 800Mi
+  selector:
+    matchLabels:
+      name: phpwebdb-nfs-vol
+      type: nfs
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: phpweb1c-pv-volume
+  labels:
+    type: nfs
+    name: phpweb2-nfs-vol
+spec:
+  capacity:
+    storage: 800Mi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  nfs:
+    path: /mnt/IT-Academy/nfs-data/sa2-20-22/bb8312/data2
+    server: 192.168.37.105
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: phpweb2c-pv-volume
+  labels:
+    type: nfs
+    name: phpwebdb2-nfs-vol
+spec:
+  capacity:
+    storage: 800Mi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  nfs:
+    path: /mnt/IT-Academy/nfs-data/sa2-20-22/bb8312/db2
+    server: 192.168.37.105
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: phpweb1c-pv-claim
+  labels:
+    app: php-web
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 800Mi
+  selector:
+    matchLabels:
+      name: phpweb2-nfs-vol
+      type: nfs
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: phpweb2c-pv-claim
+  labels:
+    app: php-web
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 800Mi
+  selector:
+    matchLabels:
+      name: phpwebdb2-nfs-vol
+      type: nfs
