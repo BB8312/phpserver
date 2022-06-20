@@ -2,7 +2,7 @@
 
 AdminVer="5.2.0"
 InfoVer="2.0.3"
-TLVer="1.9.19"
+TLVer="1.9.20"
 
 mkdir -p /usr/share/webapps/ && cd /usr/share/webapps/ && wget https://files.phpmyadmin.net/phpMyAdmin/${AdminVer}/phpMyAdmin-${AdminVer}-all-languages.tar.gz > /dev/null 2>&1 && tar -xzvf phpMyAdmin-${AdminVer}-all-languages.tar.gz > /dev/null 2>&1 && mv phpMyAdmin-${AdminVer}-all-languages phpmyadmin
 chmod -R 777 /usr/share/webapps/ && ln -s /usr/share/webapps/phpmyadmin/ /var/www/localhost/htdocs/phpmyadmin && wget https://master.dl.sourceforge.net/project/linfo/Linfo%20Stable%20Releases/linfo-${InfoVer}.tar.gz > /dev/null 2>&1 && tar -xzvf linfo-${InfoVer}.tar.gz > /dev/null 2>&1 && mv linfo-${InfoVer} linfo && mv /usr/share/webapps/linfo/sample.config.inc.php /usr/share/webapps/linfo/config.inc.php && ln -s /usr/share/webapps/linfo/ /var/www/localhost/htdocs/linfo
