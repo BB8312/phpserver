@@ -18,7 +18,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: bb8312/phpdev:$TAG
+          tags: bb8312/phpdev:${{ env.TAG }}
   kubeval:
     runs-on: ubuntu-latest
     steps:
@@ -38,7 +38,7 @@ jobs:
         SLACK_CHANNEL: notification-plan
         SLACK_COLOR: ${{ job.status }}
         SLACK_ICON: https://github.com/rtCamp.png?size=48
-        SLACK_MESSAGE: 'Kubernetes manifests have been passed through the Kubeval checks. See bb8312/phpdev:$TAG docker image.'
+        SLACK_MESSAGE: 'Kubernetes manifests have been passed through the Kubeval checks. See bb8312/phpdev:${{ env.TAG }} docker image.'
         SLACK_TITLE: 'Push happened on test!'
         SLACK_USERNAME: SuperHook
         SLACK_WEBHOOK: ${{ secrets.URL }}
