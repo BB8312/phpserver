@@ -4,7 +4,7 @@ on:
     branches:
       - main
 env:
-  TAG: tl18v1
+  TAG: tl18v2
 jobs:
   prepare:
     runs-on: ubuntu-latest
