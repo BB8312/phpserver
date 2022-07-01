@@ -1,4 +1,48 @@
 ---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: before-upgrade
+spec:
+  ttlSecondsAfterFinished: 10
+  template:
+    spec:
+      containers:
+      - name: backup
+        image: "alpine:3.15.4"
+        command:
+        - /bin/ash
+        - -c
+        - |
+          if ! [ `ls /mnt/data_backup | wc -l` -eq 0 ]; then rm -R /mnt/data_backup/*; fi
+          cp -pr /mnt/data/. /mnt/data_backup/.
+          if ! [ `ls /mnt/mysql_backup | wc -l` -eq 0 ]; then rm -R /mnt/mysql_backup/*; fi
+          cp -pr /mnt/mysql/. /mnt/mysql_backup/.
+        volumeMounts:
+            - name: per1-storage
+              mountPath: "/mnt/data"
+            - name: perdb1-storage
+              mountPath: "/mnt/mysql"
+            - name: per2-storage
+              mountPath: "/mnt/data_backup"
+            - name: perdb2-storage
+              mountPath: "/mnt/mysql_backup"
+      volumes:
+      - name: per1-storage
+        persistentVolumeClaim:
+          claimName: phpweb1-pv-claim
+      - name: perdb1-storage
+        persistentVolumeClaim:
+          claimName: phpweb2-pv-claim
+      - name: per2-storage
+        persistentVolumeClaim:
+          claimName: phpweb1c-pv-claim
+      - name: perdb2-storage
+        persistentVolumeClaim:
+          claimName: phpweb2c-pv-claim
+      restartPolicy: Never
+  backoffLimit: 0
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -41,7 +85,8 @@ spec:
               command:
               - /bin/ash
               - -c
-              - sleep 60 && read host1 </usr/share/webapps/data/host1 && mysql -uroot -p$host1 testlink < /usr/share/webapps/testlink/install/sql/alter_tables/1.9.19/mysql/DB.1.9.19/step1/db_schema_update.sql && mysql -uroot -p$host1 testlink < /usr/share/webapps/testlink/install/sql/alter_tables/1.9.19/mysql/DB.1.9.19/stepZ/z_final_step.sql
+              - sleep 60 && read host1 </usr/share/webapps/data/host1 && mysql -uroot -p$host1 testlink < /usr/share/webapps/testlink/install/sql/alter_tables/1.9.19/mysql/DB.1.9.19/step1/db_schema_update.sql && mysql -uroot -p$host1 testlink < /usr/share/webapps/testlink/install/sql/alter_tables/1.9.19/mysql/DB.1.9.19/stepZ/z_final_step.sql && sed -i "s/\$tlCfg->config_check_warning_mode\s*=.*/\$tlCfg->config_check_warning_mode = 'SILENT';/" /usr/share/webapps/testlink/config.inc.php
+
       volumes:
       - name: per-storage
         persistentVolumeClaim:

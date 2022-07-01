@@ -5,14 +5,14 @@ InfoVer="2.0.3"
 TLVer="1.9.20"
 
 mkdir -p /usr/share/webapps/ && cd /usr/share/webapps/ && wget https://files.phpmyadmin.net/phpMyAdmin/${AdminVer}/phpMyAdmin-${AdminVer}-all-languages.tar.gz > /dev/null 2>&1 && tar -xzvf phpMyAdmin-${AdminVer}-all-languages.tar.gz > /dev/null 2>&1 && mv phpMyAdmin-${AdminVer}-all-languages phpmyadmin
-chmod -R 777 /usr/share/webapps/ && ln -s /usr/share/webapps/phpmyadmin/ /var/www/localhost/htdocs/phpmyadmin && wget https://master.dl.sourceforge.net/project/linfo/Linfo%20Stable%20Releases/linfo-${InfoVer}.tar.gz > /dev/null 2>&1 && tar -xzvf linfo-${InfoVer}.tar.gz > /dev/null 2>&1 && mv linfo-${InfoVer} linfo && mv /usr/share/webapps/linfo/sample.config.inc.php /usr/share/webapps/linfo/config.inc.php && ln -s /usr/share/webapps/linfo/ /var/www/localhost/htdocs/linfo
+chmod -R 666 /usr/share/webapps/ && ln -s /usr/share/webapps/phpmyadmin/ /var/www/localhost/htdocs/phpmyadmin && wget https://master.dl.sourceforge.net/project/linfo/Linfo%20Stable%20Releases/linfo-${InfoVer}.tar.gz > /dev/null 2>&1 && tar -xzvf linfo-${InfoVer}.tar.gz > /dev/null 2>&1 && mv linfo-${InfoVer} linfo && mv /usr/share/webapps/linfo/sample.config.inc.php /usr/share/webapps/linfo/config.inc.php && ln -s /usr/share/webapps/linfo/ /var/www/localhost/htdocs/linfo
 wget https://deac-ams.dl.sourceforge.net/project/testlink/TestLink%201.9/TestLink%20${TLVer}/testlink-${TLVer}.tar.gz > /dev/null 2>&1 && tar -xzvf testlink-${TLVer}.tar.gz > /dev/null 2>&1 && mv testlink-${TLVer} testlink && ln -s /usr/share/webapps/testlink/ /var/www/localhost/htdocs/testlink
 mkdir /usr/share/webapps/data/testlink
 mkdir /usr/share/webapps/data/testlink/logs
 mkdir /usr/share/webapps/data/testlink/upload_area
 mkdir /usr/share/webapps/data/testlink/templates_c
 rm -R /usr/share/webapps/testlink/gui/templates_c && ln -s /usr/share/webapps/data/testlink/templates_c /usr/share/webapps/testlink/gui/templates_c
-chmod -R 777 /usr/share/webapps/data/
+chmod -R 666 /usr/share/webapps/data/
 mkdir /var/testlink/ && ln -s /usr/share/webapps/data/testlink/logs /var/testlink/logs && ln -s /usr/share/webapps/data/testlink/upload_area /var/testlink/upload_area && ln -s /usr/share/webapps/data/testlink/config_db.inc.php /usr/share/webapps/testlink/config_db.inc.php
 if [ ! -f /usr/share/webapps/data/bfs ]; then openssl rand -base64 24 > /usr/share/webapps/data/bfs; fi && read bfs </usr/share/webapps/data/bfs && echo -e "<?php\n\$cfg['blowfish_secret'] = '$bfs';" > /usr/share/webapps/phpmyadmin/config.inc.php
 

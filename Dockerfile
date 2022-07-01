@@ -2,7 +2,7 @@ FROM alpine:3.15.4
 # Set timezone here
 ENV TIMEZONE Europe/Minsk
 RUN apk update && apk upgrade
-RUN apk add mariadb mariadb-client apache2 apache2-utils curl wget tzdata php7-apache2 php7-cli php7-phar php7-zlib php7-zip php7-bz2 php7-ctype php7-curl php7-pdo_mysql php7-mysqli php7-json php7-mcrypt php7-xml php7-dom php7-iconv php7-xdebug php7-session php7-intl php7-gd php7-mbstring php7-apcu php7-opcache php7-tokenizer openssl mc
+RUN apk add mariadb mariadb-client apache2 apache2-utils curl wget tzdata php7-apache2 php7-cli php7-phar php7-zlib php7-zip php7-bz2 php7-ctype php7-curl php7-pdo_mysql php7-mysqli php7-json php7-mcrypt php7-xml php7-dom php7-iconv php7-xdebug php7-session php7-intl php7-gd php7-mbstring php7-apcu php7-opcache php7-tokenizer openssl mc speedtest-cli
 
 # A Dependency Manager for PHP
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer

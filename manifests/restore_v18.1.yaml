@@ -2,22 +2,22 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: before-upgrade
+  name: before-restore
 spec:
   ttlSecondsAfterFinished: 10
   template:
     spec:
       containers:
-      - name: backup
+      - name: restore
         image: "alpine:3.15.4"
         command:
         - /bin/ash
         - -c
         - |
-          if ! [ `ls /mnt/data_backup | wc -l` -eq 0 ]; then rm -R /mnt/data_backup/*; fi
-          cp -pr /mnt/data/. /mnt/data_backup/.
-          if ! [ `ls /mnt/mysql_backup | wc -l` -eq 0 ]; then rm -R /mnt/mysql_backup/*; fi
-          cp -pr /mnt/mysql/. /mnt/mysql_backup/.
+          if ! [ `ls /mnt/data | wc -l` -eq 0 ]; then rm -R /mnt/data/*; fi
+          cp -pr /mnt/data_backup/. /mnt/data/.
+          if ! [ `ls /mnt/mysql | wc -l` -eq 0 ]; then rm -R /mnt/mysql/*; fi
+          cp -pr /mnt/mysql_backup/. /mnt/mysql/.
         volumeMounts:
             - name: per1-storage
               mountPath: "/mnt/data"
@@ -61,7 +61,7 @@ spec:
     spec:
       containers:
       - name: web-php
-        image: bb8312/phpdev:tl18b2
+        image: bb8312/phpdev:tl18b1
         ports:
         - containerPort: 80
         resources:

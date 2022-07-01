@@ -4,7 +4,7 @@ on:
     branches:
       - test
 env:
-  TAG: tl20b1
+  TAG: tl20b2
 jobs:
   prepare:
     runs-on: ubuntu-latest

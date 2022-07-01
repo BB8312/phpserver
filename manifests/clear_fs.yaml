@@ -13,10 +13,10 @@ spec:
         - /bin/ash
         - -c
         - |
-          rm -R /mnt/data/*
-          rm -R /mnt/mysql/*
-          rm -R /mnt/data_backup/*
-          rm -R /mnt/mysql_backup/*
+          if ! [ `ls /mnt/data | wc -l` -eq 0 ]; then rm -R /mnt/data/*; fi
+          if ! [ `ls /mnt/mysql | wc -l` -eq 0 ]; then rm -R /mnt/mysql/*; fi
+          if ! [ `ls /mnt/data_backup | wc -l` -eq 0 ]; then rm -R /mnt/data_backup/*; fi
+          if ! [ `ls /mnt/mysql_backup | wc -l` -eq 0 ]; then rm -R /mnt/mysql_backup/*; fi
         volumeMounts:
             - name: per1-storage
               mountPath: "/mnt/data"
