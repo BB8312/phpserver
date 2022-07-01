@@ -13,9 +13,9 @@ spec:
         - /bin/ash
         - -c
         - |
-          if ! [ `ls /mnt/data_backup | wc -l` -eq 0 ]; then rm -R /mnt/data_backup/*; fi
+          rm -R /mnt/data_backup/*
           cp -pr /mnt/data/. /mnt/data_backup/.
-          if ! [ `ls /mnt/mysql_backup | wc -l` -eq 0 ]; then rm -R /mnt/mysql_backup/*; fi
+          rm -R /mnt/mysql_backup/*
           cp -pr /mnt/mysql/. /mnt/mysql_backup/.
         volumeMounts:
             - name: per1-storage

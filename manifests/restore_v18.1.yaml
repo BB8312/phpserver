@@ -41,7 +41,7 @@ spec:
               command:
               - /bin/ash
               - -c
-              - sleep 60 && sed -i "s/\$tlCfg->config_check_warning_mode\s*=.*/\$tlCfg->config_check_warning_mode = 'SILENT';/" /usr/share/webapps/testlink/config.inc.php
+              - while [ ! -f /usr/share/webapps/testlink/config.inc.php ]; do sleep 4; done && sed -i "s/\$tlCfg->config_check_warning_mode\s*=.*/\$tlCfg->config_check_warning_mode = 'SILENT';/" /usr/share/webapps/testlink/config.inc.php
 
       volumes:
       - name: per-storage
