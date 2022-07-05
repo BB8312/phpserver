@@ -3,7 +3,7 @@ kind: Job
 metadata:
   name: before-restore
 spec:
-  ttlSecondsAfterFinished: 10
+  ttlSecondsAfterFinished: 2
   template:
     spec:
       containers:

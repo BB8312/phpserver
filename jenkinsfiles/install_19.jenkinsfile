@@ -1,0 +1,25 @@
+pipeline {
+    agent { node { label 'slave' } }
+    stages {
+        stage('Git_Clone') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'some_randome', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
+                    script {
+                        env.encodedPass=URLEncoder.encode(PASS, "UTF-8")
+                    }
+                    sh 'if [ -d phpserver ]; then rm -R phpserver; fi && git clone -b main --single-branch https://${USER}:${encodedPass}@github.com/BB8312/phpserver.git'
+                }
+            }
+        }
+        stage('Clear_FS') {
+            steps {
+                sh 'cd phpserver/manifests && kubectl apply -f clear_fs.yaml || : && while [ `kubectl get pods | grep before-install | wc -l` -eq 1 ]; do sleep 2; done'
+                }
+            }
+        stage('Install_18') {
+            steps {
+                sh 'cd phpserver/manifests && kubectl apply -f in_stab_v19.1.yaml && while ! [ `curl http://php.k8s-3.sa/testlink/login.php | grep Login.php | wc -l` -eq 1 ]; do sleep 2; done'
+                }
+            }
+    }
+}

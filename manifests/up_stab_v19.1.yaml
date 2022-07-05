@@ -41,7 +41,8 @@ spec:
               command:
               - /bin/ash
               - -c
-              - sleep 60 && read host1 </usr/share/webapps/data/host1 && mysql -uroot -p$host1 testlink < /usr/share/webapps/testlink/install/sql/alter_tables/1.9.19/mysql/DB.1.9.19/step1/db_schema_update.sql && mysql -uroot -p$host1 testlink < /usr/share/webapps/testlink/install/sql/alter_tables/1.9.19/mysql/DB.1.9.19/stepZ/z_final_step.sql
+              - while [ ! -f /var/lib/mysql/$HOSTNAME.pid ]; do sleep 4; done && read host1 </usr/share/webapps/data/host1 && mysql -uroot -p$host1 testlink < /usr/share/webapps/testlink/install/sql/alter_tables/1.9.19/mysql/DB.1.9.19/step1/db_schema_update.sql && mysql -uroot -p$host1 testlink < /usr/share/webapps/testlink/install/sql/alter_tables/1.9.19/mysql/DB.1.9.19/stepZ/z_final_step.sql && sed -i "s/\$tlCfg->config_check_warning_mode\s*=.*/\$tlCfg->config_check_warning_mode = 'SILENT';/" /usr/share/webapps/testlink/config.inc.php
+
       volumes:
       - name: per-storage
         persistentVolumeClaim:

@@ -3,7 +3,7 @@ kind: Job
 metadata:
   name: before-install
 spec:
-  ttlSecondsAfterFinished: 10
+  ttlSecondsAfterFinished: 2
   template:
     spec:
       containers:
