@@ -16,7 +16,7 @@ pipeline {
                 sh 'cd phpserver/manifests && kubectl apply -f clear_fs.yaml || : && while [ `kubectl get pods | grep before-install | wc -l` -eq 1 ]; do sleep 2; done'
                 }
             }
-        stage('Install_18') {
+        stage('Install_20') {
             steps {
                 sh 'cd phpserver/manifests && kubectl apply -f in_stab_v20.1.yaml && while ! [ `curl http://php.k8s-3.sa/testlink/login.php | grep Login.php | wc -l` -eq 1 ]; do sleep 2; done'
                 }
